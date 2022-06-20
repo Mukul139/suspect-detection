@@ -3,3 +3,5 @@ test
 test.py
 untitled.ipynb
 database
+.ipynb_checkpoints
+.idea
