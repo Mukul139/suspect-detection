@@ -1,0 +1,53 @@
+.search {
+  float: left;
+  font-family: algerian, courier;
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 100px;
+  padding-left: 15px;
+}
+#parent {
+    width: 100%;
+
+
+    padding-top: 30px;
+    padding-bottom: 50px;
+    white-space: nowrap;
+    overflow-x: auto;
+
+}
+.child {
+    display: inline-block;
+
+    height: 100%;
+    padding-right: 20px;
+    padding-left: 5px;
+}
+
+#parent_2 {
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+
+}
+.child_2 {
+    display: inline-block;
+
+    height: 100%;
+    padding-right: 50px;
+    padding-left: 20px;
+}
+
+.image {
+padding-top: 20px;
+  padding-bottom: 100px;
+}
+
+.video {
+  border: 2px solid #ddd;
+  border-radius: 7px;
+  padding: 10px;
+
+}

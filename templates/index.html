@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepage.css') }}">
+    <!-- Bootstrap CSS -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+
+    <title>Home</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Home</a>
+<!--            </div>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+
+      <a class="nav-item nav-link" href="/suspect">Suspect</a>
+        <a class="nav-item nav-link " href="/suspect_detected">Detected</a>
+
+    </div>
+  </div>
+            </div>
+        </nav>
+
+ <h3 style="padding-top: 20px; padding-left: 10px">
+            {% if "0" == link %}
+                <p>Source  webcam</p>
+            {% else %}
+                <p>Source  {{link}}</p>
+{% endif %}
+ </h3>
+<div style = "display: flex; padding-bottom: 30px; justify-content: space-evenly;">
+<div style = "display: flex; padding-left: 30px">
+<div  class="card" style=" margin: 1em 0; padding: 1em 0 0 0; align-items: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+    <div style = "display: flex">
+        <div  style = "padding: 20px 20px 20px 20px">
+<form method="POST">
+
+<select name="video">
+  <option value="{{videos[0]}}" selected>{{videos[0]}}</option>
+  {% for video in videos[1:] %}
+    <option value="{{video}}">{{video}}</option>
+  {% endfor %}
+</select>
+    <button type="submit" class="btn btn-secondary">submit</button>
+
+</form></div>
+
+<div  style = "padding: 20px 20px 20px 20px">
+                <form method="POST">
+
+    <input id = "link"  name="text" placeholder="link" >
+    <button id ="link_button" disabled type="submit" class="btn btn-secondary">submit</button>
+                </form></div>
+</div>
+</div></div>
+    <div style = "display: flex; padding-left: 30px">
+<div id="parent" class="card" style="padding-left: 20px; padding-right: 20px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+<form method="POST">
+     <div class="child">
+         <p><b>Detector</b></p>
+<select name="detector">
+  <option value="{{detectors[detector_selected]}}" selected>{{detectors[detector_selected]}}</option>
+  {% for  detector in detectors %}
+    {% if detector != detectors[detector_selected] %}
+                <option value="{{detector}}">{{detector}}</option>
+
+
+{% endif %}
+
+  {% endfor %}
+</select>
+</div>
+     <div class="child">
+         <p><b>Stride</b></p>
+    <select name="stride">
+
+  <option value="{{strides[stride_selected]}}" selected>{{strides[stride_selected]}}</option>
+  {% for  stride in strides %}
+    {% if stride != strides[stride_selected] %}
+                <option value="{{stride}}">{{stride}}</option>
+
+
+{% endif %}
+
+  {% endfor %}
+</select>
+         </div>
+     <div class="child">
+         <p><b>Threshold</b></p>
+         <input id="slide" type="range" min="0" max="1" step="0.02" value={{threshold_selected}} name="slide">
+                <div id="sliderAmount"></div>
+     </div>
+         <div class="child">
+    <button type="submit" class="btn btn-secondary">submit</button>
+         </div>
+</form>
+</div>
+    </div>
+</div>
+
+
+    <!--- SCRIPTS --->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<div class="container">
+
+        <div class="col-lg-8  offset-lg-2">
+
+
+<div class="image">
+            <img class="video" src="{{ url_for('video_feed', link=link) }}" width="100%">
+<!--            <img class="video" src="https://picsum.photos/id/237/200/300" width="100%">-->
+</div>
+    </div>
+</div>
+
+
+</body>
+<script>
+  var slide = document.getElementById('slide'),
+    sliderDiv = document.getElementById("sliderAmount");
+    var link = document.getElementById('link');
+
+slide.onchange = function() {
+    sliderDiv.innerHTML = this.value;
+
+}
+
+
+link.oninput = function() {
+var url = link.value
+if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('rtsp://') || url.startsWith('ftp://') ) {
+    document.getElementById("link_button").disabled = false;}
+
+else{
+document.getElementById("link_button").disabled = true;
+}}
+
+</script>
+</html>
