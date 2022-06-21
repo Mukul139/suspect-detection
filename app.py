@@ -24,7 +24,7 @@ detector = "ssd"
 threshold = 0.6
 stride = 0
 strides = [0, 1, 2, 3, 4, 5, 6]
-link = '0'
+link = ''
 video_format = ['.mp4']
 
 test_file = f"{cwd}" + "/test"
@@ -38,7 +38,7 @@ for r, d, f in os.walk(test_file):
 
 @app.route('/video_feed/<path:link>')
 def video_feed(link):
-    logging.info("[+Stream link :: ]"+link)
+    logging.info("[+Stream link :: ]" + link)
     if link in videos:
         link = test_file + '/' + link
     logging.info(f'Detector :: {detector} , Threshold :: {threshold} , Stride :: {stride}')
@@ -50,7 +50,7 @@ def video_feed(link):
 def index():
     return render_template('index.html', link=link, videos=videos, detector_selected=detectors.index(detector),
                            threshold_selected=threshold, stride_selected=strides.index(stride), detectors=detectors,
-                           strides=strides)
+                           strides=strides, active_link=len(link))
 
 
 @app.route('/', methods=['POST'])
@@ -75,7 +75,7 @@ def index_post():
 
     return render_template('index.html', link=link, videos=videos, detector_selected=detectors.index(detector),
                            threshold_selected=threshold, stride_selected=strides.index(stride), detectors=detectors,
-                           strides=strides)
+                           strides=strides, active_link=len(link))
 
 
 if __name__ == '__main__':
