@@ -4,3 +4,4 @@ Flask-BasicAuth==0.2.0
 pyTelegramBotAPI==4.5.1
 scikit_image==0.19.2
 vidgear==0.2.5
+annoy
